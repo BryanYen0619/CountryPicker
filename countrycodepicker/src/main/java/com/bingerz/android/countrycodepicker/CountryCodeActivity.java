@@ -16,9 +16,6 @@ import java.util.Comparator;
  * Created by hanbing on 15/5/13.
  */
 public class CountryCodeActivity extends Activity {
-
-    private SideBar sideBar;
-
     private ListView mListView;
 
     private ArrayList<CountryCode> mCountryCodes;
@@ -34,18 +31,6 @@ public class CountryCodeActivity extends Activity {
     }
 
     private void initView() {
-        sideBar = (SideBar) findViewById(R.id.sb_sidebar);
-        sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
-
-            @Override
-            public void onTouchingLetterChanged(String s) {
-                int position = mAdapter.getPositionForSection(s.charAt(0));
-                if (position != -1) {
-                    mListView.setSelection(position);
-                }
-            }
-        });
-
         mCountryCodes = new ArrayList<>();
         mAdapter = new CountryCodeAdapter(this);
         mListView = (ListView) findViewById(R.id.lv_list);
