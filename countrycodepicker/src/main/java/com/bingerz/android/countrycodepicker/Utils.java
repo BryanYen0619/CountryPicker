@@ -9,6 +9,10 @@ import java.util.Locale;
  */
 public class Utils {
 
+    public static final int COUNTRY_EN = 0x00;
+    public static final int COUNTRY_TW = 0x10;
+    public static final int COUNTRY_CN = 0x11;
+
     public static String getCountry(Context context) {
         try {
             Locale locale = context.getResources().getConfiguration().locale;

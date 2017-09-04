@@ -12,7 +12,6 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class CountryCodeAdapter extends BaseAdapter implements SectionIndexer {
 
@@ -70,11 +69,7 @@ public class CountryCodeAdapter extends BaseAdapter implements SectionIndexer {
         String fileName = String.format("f%03d", country.mFlagId);
         int mResId = mContext.getResources().getIdentifier(fileName, "drawable", mContext.getPackageName());
         holder.ivCountryIcon.setImageResource(mResId);
-        if (Utils.getCountry(mContext).equals(Locale.CHINA.getCountry())) {
-            holder.tvCountryName.setText(country.mNameCn);
-        } else {
-            holder.tvCountryName.setText(country.mNameEn);
-        }
+        holder.tvCountryName.setText(country.mName);
         holder.tvCountryCode.setText(country.getCountryCodeStr());
         return convertView;
     }

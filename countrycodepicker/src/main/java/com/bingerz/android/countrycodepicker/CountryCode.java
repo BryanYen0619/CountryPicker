@@ -11,8 +11,6 @@
 
 package com.bingerz.android.countrycodepicker;
 
-import com.github.promeg.pinyinhelper.Pinyin;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -20,26 +18,19 @@ import android.text.TextUtils;
 public class CountryCode implements Parcelable {
 
     public int mFlagId;
-
-    public String mNameCn;
-
-    public String mNameEn;
-
     public int mCountryCode;
-
-    public String mRegionCode;
-
     public int mPriority;
 
+    public String mName;
+    public String mRegionCode;
     public String sortLetters;
 
     private CountryCode() {
     }
 
-    public CountryCode(int id, String cn, String en, String region, int country) {
+    public CountryCode(int id, String countryName, String region, int country) {
         mFlagId = id;
-        mNameCn = cn;
-        mNameEn = en;
+        mName = countryName;
         mRegionCode = region;
         mCountryCode = country;
     }
@@ -48,25 +39,12 @@ public class CountryCode implements Parcelable {
         return "+" + mCountryCode;
     }
 
-    public void setSortLettersEn() {
-        if (TextUtils.isEmpty(mNameEn)) {
+    public void setSortLetter() {
+        if (TextUtils.isEmpty(mName)) {
             sortLetters = "#";
             return;
         }
-        String sortString = mNameEn.substring(0, 1).toUpperCase();
-        if (sortString.matches("[A-Z]")) {
-            sortLetters = sortString.toUpperCase();
-        } else {
-            sortLetters = "#";
-        }
-    }
-
-    public void setSortLettersCn() {
-        if (TextUtils.isEmpty(mNameCn)) {
-            sortLetters = "#";
-            return;
-        }
-        String sortString = Pinyin.toPinyin(mNameCn.charAt(0)).substring(0, 1).toUpperCase();
+        String sortString = mName.substring(0, 1).toUpperCase();
         if (sortString.matches("[A-Z]")) {
             sortLetters = sortString.toUpperCase();
         } else {
@@ -81,8 +59,7 @@ public class CountryCode implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.mNameCn);
-        dest.writeString(this.mNameEn);
+        dest.writeString(this.mName);
         dest.writeString(this.mRegionCode);
         dest.writeInt(this.mCountryCode);
         dest.writeInt(this.mPriority);
@@ -91,8 +68,7 @@ public class CountryCode implements Parcelable {
     }
 
     private CountryCode(Parcel in) {
-        this.mNameCn = in.readString();
-        this.mNameEn = in.readString();
+        this.mName = in.readString();
         this.mRegionCode = in.readString();
         this.mCountryCode = in.readInt();
         this.mPriority = in.readInt();

@@ -11,7 +11,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Locale;
 
 /**
  * Created by hanbing on 15/5/13.
@@ -70,9 +69,8 @@ public class CountryCodeActivity extends Activity {
                 String fileName = String.format("c%03d", i);
                 int mResId = getResources().getIdentifier(fileName, "array", getPackageName());
                 String[] codeArray = getResources().getStringArray(mResId);
-                int code = Integer.parseInt(codeArray[2]);
-                countryCodes
-                        .add(new CountryCode(i, codeArray[0], codeArray[1], codeArray[3], code));
+                int code = Integer.parseInt(codeArray[1]);
+                countryCodes.add(new CountryCode(i, codeArray[0], codeArray[2], code));
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
@@ -82,11 +80,7 @@ public class CountryCodeActivity extends Activity {
 
         if (!countryCodes.isEmpty()) {
             for (CountryCode country : countryCodes) {
-                if (Utils.getCountry(this).equals(Locale.CHINA.getCountry())) {
-                    country.setSortLettersCn();
-                } else {
-                    country.setSortLettersEn();
-                }
+                country.setSortLetter();
             }
             Collections.sort(countryCodes, new PinyinComparator());
 
