@@ -2,25 +2,28 @@ package com.bingerz.android.countrycodepicker;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 /**
  * Created by hanbing on 15/5/13.
  */
 public class CountryCodeActivity extends Activity {
-    private ListView mListView;
+    private EditText searchEditText;
 
+    private ArrayList<CountryCode> mOriginCountryCodes;
     private ArrayList<CountryCode> mCountryCodes;
 
     protected CountryCodeAdapter mAdapter;
+
+    private String searchKeyword = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +35,9 @@ public class CountryCodeActivity extends Activity {
 
     private void initView() {
         mCountryCodes = new ArrayList<>();
-        mAdapter = new CountryCodeAdapter(this);
-        mListView = (ListView) findViewById(R.id.lv_list);
+        mOriginCountryCodes = new ArrayList<>();
+        mAdapter = new CountryCodeAdapter(this, mCountryCodes);
+        ListView mListView = findViewById(R.id.lv_list);
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -45,12 +49,29 @@ public class CountryCodeActivity extends Activity {
                 CountryCodeActivity.this.finish();
             }
         });
+        searchEditText = findViewById(R.id.editText);
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                listViewFilter(searchEditText.getText().toString());
+            }
+        });
     }
 
     private void parseCountryCodeData() {
         ArrayList<CountryCode> countryCodes = new ArrayList<>();
         try {
-            for (int i = 0; i <= 238; i++) {
+            for (int i = 0; i <= 238; i++) {    // 國家數量: 238
                 String fileName = String.format("c%03d", i);
                 int mResId = getResources().getIdentifier(fileName, "array", getPackageName());
                 String[] codeArray = getResources().getStringArray(mResId);
@@ -59,34 +80,35 @@ public class CountryCodeActivity extends Activity {
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
-        } catch (Resources.NotFoundException e) {
-            e.printStackTrace();
         }
 
         if (!countryCodes.isEmpty()) {
-            for (CountryCode country : countryCodes) {
-                country.setSortLetter();
-            }
-            Collections.sort(countryCodes, new PinyinComparator());
-
             mCountryCodes.clear();
             mCountryCodes.addAll(countryCodes);
-            mAdapter.notifyDateAll(countryCodes);
+            mOriginCountryCodes.clear();
+            mOriginCountryCodes.addAll(countryCodes);
+            mAdapter.notifyDataSetChanged();
         }
     }
 
-    class PinyinComparator implements Comparator<CountryCode> {
+    public void listViewFilter(String keyword) {
+        if (!searchKeyword.equals(keyword)) {
+            ArrayList<CountryCode> newArrayList = new ArrayList<>();
 
-        public int compare(CountryCode o1, CountryCode o2) {
-            if (o1.sortLetters.equals("@")
-                    || o2.sortLetters.equals("#")) {
-                return -1;
-            } else if (o1.sortLetters.equals("#")
-                    || o2.sortLetters.equals("@")) {
-                return 1;
-            } else {
-                return o1.sortLetters.compareTo(o2.sortLetters);
+            for (int i = 0; i < mOriginCountryCodes.size(); i++) {
+                if (mOriginCountryCodes.get(i).getName().contains(keyword)) {
+                    newArrayList.add(mOriginCountryCodes.get(i));
+                }
+                if (mOriginCountryCodes.get(i).getRegionCode().contains(keyword.toUpperCase())) {
+                    newArrayList.add(mOriginCountryCodes.get(i));
+                }
             }
+
+            mCountryCodes.clear();
+            mCountryCodes.addAll(newArrayList);
+            mAdapter.notifyDataSetChanged();
+
+            searchKeyword = keyword;
         }
     }
 }

@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">Country-code-picker</string>
 
+    <string name="text_search">輸入國家關鍵字</string>
+
     <string name="AF">阿富汗</string>
     <string name="AL">阿爾巴尼亞</string>
     <string name="DZ">阿爾及利亞</string>
@@ -205,7 +207,7 @@
     <string name="SE">瑞典</string>
     <string name="CH">瑞士</string>
     <string name="SY">敘利亞</string>
-    <string name="TW">中華民國</string>
+    <string name="TW">中華民國(台灣)</string>
     <string name="TJ">塔吉克斯坦</string>
     <string name="TZ">坦桑尼亞</string>
     <string name="TH">泰國</string>

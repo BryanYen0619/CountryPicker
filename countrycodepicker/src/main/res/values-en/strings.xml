@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">Country-code-picker</string>
 
+    <string name="text_search">Enter Country Keyword</string>
+
     <string name="AF">Afghanistan</string>
     <string name="AL">Albania</string>
     <string name="DZ">Algeria</string>

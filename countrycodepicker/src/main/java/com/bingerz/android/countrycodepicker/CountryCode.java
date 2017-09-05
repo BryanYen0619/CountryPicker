@@ -13,43 +13,29 @@ package com.bingerz.android.countrycodepicker;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.TextUtils;
 
 public class CountryCode implements Parcelable {
 
-    public int mFlagId;
+    int mFlagId;
     public int mCountryCode;
-    public int mPriority;
+    private int mPriority;
 
-    public String mName;
-    public String mRegionCode;
-    public String sortLetters;
+    String mName;
+    private String mRegionCode;
+    private String sortLetters;
 
     private CountryCode() {
     }
 
-    public CountryCode(int id, String countryName, String region, int country) {
+    CountryCode(int id, String countryName, String region, int country) {
         mFlagId = id;
         mName = countryName;
         mRegionCode = region;
         mCountryCode = country;
     }
 
-    public String getCountryCodeStr() {
+    String getCountryCodeStr() {
         return "+" + mCountryCode;
-    }
-
-    public void setSortLetter() {
-        if (TextUtils.isEmpty(mName)) {
-            sortLetters = "#";
-            return;
-        }
-        String sortString = mName.substring(0, 1).toUpperCase();
-        if (sortString.matches("[A-Z]")) {
-            sortLetters = sortString.toUpperCase();
-        } else {
-            sortLetters = "#";
-        }
     }
 
     @Override
@@ -85,4 +71,12 @@ public class CountryCode implements Parcelable {
             return new CountryCode[size];
         }
     };
+
+    public String getName() {
+        return mName;
+    }
+
+    String getRegionCode() {
+        return mRegionCode;
+    }
 }
