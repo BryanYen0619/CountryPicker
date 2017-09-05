@@ -44,20 +44,26 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 ### Integration
 依據步驟加入專案。
 
-1. Add the dependency
+* Step 1. Add the JitPack repository to your build file
+
+	Add it in your root build.gradle at the end of repositories:
+	
+	```groovy
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+* Step 2. Add the dependency
 
 	```groovy
-  dependencies {
-       compile 'com.bingerz.android:countrycodepicker:0.4.0'
-  }
-
+	dependencies {
+        compile 'com.github.BryanYen0619:CountryPicker:-SNAPSHOT'
+	}
 	```
-2. Add `AndroidManifest.xml`
-
-	```java
-	<activity android:name="com.bingerz.android.countrycodepicker.CountryCodeActivity" />
-	```
-	
 ## 詳細說明
 
 1. Clone來源：[bingerz/CountryCodePicker](https://github.com/bingerz/CountryCodePicker)
