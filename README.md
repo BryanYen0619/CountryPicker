@@ -64,6 +64,11 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         compile 'com.github.BryanYen0619:CountryPicker:-SNAPSHOT'
 	}
 	```
+* Step 3. Add `AndroidManifest.xml`
+
+	```java
+	<activity android:name="com.bingerz.android.countrycodepicker.CountryCodeActivity" />
+	```
 	
 ## 詳細說明
 
