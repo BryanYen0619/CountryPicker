@@ -1,21 +1,24 @@
-# CountryCodePicker
+# CountryPicker
+--------
+![alt text](https://github.com/BryanYen0619/CountryPicker/sdreenshot/device-2017-09-05-110311.png)
 
-    适用于Android项目的国家代码选择器。
+* 適用於Android項目的國家代碼選擇器。
 
-    国家代码的数据参考了谷歌、Facebook等一些应用中的数据，逐条验证过信息（国家名称，国旗，国家代码等）的准确性，
-    并查漏补缺，最终数据来源于WiKi。
+* 國家代碼的數據參考了谷歌、Facebook等一些應用中的數據，逐條驗證過信息（國家名稱，國旗，國家代碼等）的準確性，並查漏補缺，最終數據來源於WiKi。
+	
+* 收入`238`國家數
 
 ## 使用
 
 ### API
 ```java
 /**
- * 跳转到选择器Activity界面
+ * 跳轉到選擇器Activity畫面
  */
 new CountryCodePicker().start(this);
 
 /**
- * 在当前的界面接收选择的国家代码
+ * 在當下的界面接收選擇的國家代號
  */
 @Override
 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -28,7 +31,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             }
             CountryCode countryCode = data.getParcelableExtra(CountryCodePicker.EXTRA_CODE);
             if (countryCode != null) {
-                //添加自己的代码，处理返回的结果
+                //這邊加入自己的程式碼，處理返回結果
                 Toast.makeText(this, countryCode.mCountryCode + "", Toast.LENGTH_SHORT).show();
             }
             break;
@@ -36,25 +39,27 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 }
 ```
 
-### 添加到工程
+## 如何使用
 
-```groovy
-buildscript {
-  repositories {
-    jcenter()
-  }
+### Integration
+依據步驟加入專案。
 
+1. Add the dependency
+
+	```groovy
   dependencies {
-    compile 'com.bingerz.android:countrycodepicker:0.4.0'
+       compile 'com.bingerz.android:countrycodepicker:0.4.0'
   }
-}
-```
 
-```java
-//AndroidManifest.xml 文件中添加此行代码
-<activity android:name="com.bingerz.android.countrycodepicker.CountryCodeActivity" />
-```
-## 详细说明
+	```
+2. Add `AndroidManifest.xml`
 
-最初版本加载国家代码的数据是通过json文件，国家代码和国家名称等信息保存在json文件中。在略大的项目中，
-读取json文件过程会对IO造成阻塞，导致界面ANR，现在改为string-array的方式。
+	```java
+	<activity android:name="com.bingerz.android.countrycodepicker.CountryCodeActivity" />
+	```
+	
+## 詳細說明
+
+1. Clone來源：[bingerz/CountryCodePicker](https://github.com/bingerz/CountryCodePicker)
+2. 加入多國語系支援，目前支援EN, 繁中, 簡中
+3. 加入搜尋欄，參考 : [mukeshsolanki/country-picker-android](https://github.com/mukeshsolanki/country-picker-android) 
