@@ -55,7 +55,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 			maven { url 'https://jitpack.io' }
 		}
 	}
-```
+	```
 
 * Step 2. Add the dependency
 
@@ -64,6 +64,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         compile 'com.github.BryanYen0619:CountryPicker:-SNAPSHOT'
 	}
 	```
+	
 ## 詳細說明
 
 1. Clone來源：[bingerz/CountryCodePicker](https://github.com/bingerz/CountryCodePicker)
