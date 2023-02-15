@@ -1,6 +1,6 @@
 # CountryPicker
 --------
-![alt text](https://github.com/BryanYen0619/CountryPicker/blob/master/screenshot/device-2017-09-05-110311.png)
+<img src="https://github.com/BryanYen0619/CountryPicker/blob/master/screenshot/device-2017-09-05-110311.png" height="640px" width="288px" >
 
 * 適用於Android項目的國家代碼選擇器。
 
